@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">    
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+
+</head>
+<body>
+
+<div th:include="navbar.html"> content here </div>
+<div class="wrapper" style="width:800px; margin:0 auto;">
+
+<p>Prijavi ispite</p><br>
+
+<form style="width: 400px; margin: 0 auto;" class="form-group"  th:action="@{/nije}" th:object="${myispit}" method="post"  >
+<select  class="form-control" th:field="*{id}" >
+<option th:each="item : ${ispiti}"
+th:value="${item.getId}"
+th:text="${item.getIme}"></option>
+</select>
+<br>
+<input  class="btn btn-primary" type="submit" value="Prijavi"> 
+</form>
+<br>
+<p>Prijavljeni ispiti</p>
+
+<table class="table">
+<tr>
+<th scope="col">Ime predmeta</th>
+<th scope="col">Sifra predmeta</th>
+<th scope"col">Datum ispita</th>
+</tr>
+ <tr th:each="item : *{prijavljeniIspiti}">
+                    
+        <td th:text="${item.ime} "></td>
+    <td th:text="${item.sifra} "></td>
+      <td th:text="${#dates.format(item.datum, 'dd-MMM-yyyy')} "></td>
+                 
+             </tr>
+             </table>
+             </div>
+</body>
+</html>
