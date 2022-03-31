@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
-  <link rel="stylesheet" th:href="@{/css/loginstil.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/loginstil.css}"/>
 </head>
 <body>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -11,32 +11,32 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
-
 <div class="wrapper fadeInDown">
   <div id="formContent">
  
 
  
-    <div class="fadeIn first">
-      <img  id="icon" alt="User Icon" />
+
+<div class="wrapper fadeInDown" >
+     
     </div>
 
   
-    <form action="#" th:action="@{/add}" th:object="${student}" method="post">
+    <form action="#" th:action="@{/register}" class="form-group" th:object="${student}" method="post">
       <input type="text"  class="fadeIn second" placeholder="Ime i prezime" th:field="*{ime}">   
-      
-      <input type="text"  class="fadeIn second" placeholder="E-mail" th:field="*{email}">
-      
-       <input type="text"  class="fadeIn second" placeholder="indeks" th:field="*{indeks}">
- 
- 	<input type="text"  class="fadeIn second" placeholder="Password" th:field="*{password}">
-
-      <input type="submit" class="fadeIn fourth" value="Registruj se">
+          <p th:if="${#fields.hasErrors('ime')}">Niste uneli vase ime i prezime</p>
+      <input type="text"     class="fadeIn second" placeholder="E-mail" th:field="*{email}">
+      <p th:if="${#fields.hasErrors('email')}">Niste uneli email adresu.</p>
+       <input type="text"   class="fadeIn second" placeholder="Indeks" th:field="*{indeks}">
+       <p th:if="${#fields.hasErrors('indeks')}">Niste uneli validan broj indeksa.</p>
+ 	<input type="text"     class="fadeIn second" placeholder="Lozinka" th:field="*{password}">
+    <p th:if="${#fields.hasErrors('password')}">Sifra mora imati najmanje 5 karaktera.</p>
+      <input type="submit"  class="btn btn-primary" value="Registruj se">
     </form>
 
 
     <div id="formFooter">
-      <a class="underlineHover" >Login</a>
+      <a class="underlineHover" href="/login" >Login</a>
     </div>
 
   </div>

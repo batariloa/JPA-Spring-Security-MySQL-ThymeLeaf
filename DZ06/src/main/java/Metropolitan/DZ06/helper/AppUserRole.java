@@ -1,4 +1,4 @@
-package Metropolitan.DZ06.student;
+package Metropolitan.DZ06.helper;
 
 public enum AppUserRole {
 USER,

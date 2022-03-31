@@ -1,4 +1,4 @@
-package Metropolitan.DZ06.student;
+package Metropolitan.DZ06.controller;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

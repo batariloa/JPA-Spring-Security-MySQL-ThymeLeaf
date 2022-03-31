@@ -1,7 +1,9 @@
-package Metropolitan.DZ06.student;
+package Metropolitan.DZ06.security;
 
 import java.util.Collection;
 import java.util.Collections;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,12 +11,15 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import Metropolitan.DZ06.entity.Student;
+
 @Component
 public class CustomUserDetails implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
+	@Valid
 	private Student student;
 	 
 	

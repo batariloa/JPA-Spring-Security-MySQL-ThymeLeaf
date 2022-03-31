@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,10 +37,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	   http
 	      .authorizeRequests()        
 	      
-	          .antMatchers("/resources/**", "/register/**", "/about","/","/static/**","/css/*","/resources/**").permitAll()           
+	          .antMatchers("/resources/**", "/register/**", "/about","/","/static/**","/css/*", "/login","/navbar").permitAll()           
 	          .antMatchers("/admin/**").hasRole("ADMIN")                                
-	          .antMatchers("/all/**","prijavi").access("hasRole('ADMIN')")      
-	          .antMatchers("/prijavi").access("hasRole('USER')")   
+	          .antMatchers().access("hasRole('ADMIN')")      
+	          .antMatchers("/prijavi/**","/all/**","/","/dodaj").access("hasRole('USER')")   
 	          .antMatchers("/*.css").permitAll()
 	          .anyRequest().permitAll()                                   
 	         
@@ -47,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin().loginPage("/login").permitAll()
             ;
    }
+
 
 
 }

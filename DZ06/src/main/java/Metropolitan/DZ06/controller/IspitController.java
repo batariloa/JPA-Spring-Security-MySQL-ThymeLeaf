@@ -1,4 +1,4 @@
-package Metropolitan.DZ06.ispit;
+package Metropolitan.DZ06.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import Metropolitan.DZ06.entity.Ispit;
+import Metropolitan.DZ06.entity.Student;
 import Metropolitan.DZ06.jpa.repository.IspitRepository;
 import Metropolitan.DZ06.jpa.repository.StudentRepository;
-import Metropolitan.DZ06.student.CustomUserDetails;
-import Metropolitan.DZ06.student.Student;
+import Metropolitan.DZ06.security.CustomUserDetails;
 
 @Controller
 public class IspitController {
@@ -36,7 +37,7 @@ private StudentRepository studentRepo;
 @Autowired
 private IspitRepository ispitRepo;
 
-	@GetMapping({"/prijavi","/	"})
+	@GetMapping({"/prijavi","/"})
 	String getIspiti(Model model) {
 		
 		model.addAttribute("myispit", new Ispit());
@@ -49,7 +50,7 @@ private IspitRepository ispitRepo;
 		Student s1 = studentRepo.getById(userId);
 		
 
-		listaPrijavljenihIspita = s1.getPrijaveljeniIspiti();
+		listaPrijavljenihIspita = s1.getPrijavljeniIspiti();
 		listaDostupnihIspita = filtrirajIspite(ispitRepo.findAll(), listaPrijavljenihIspita);
 		System.out.println("trenutni id je "+ userId);
 		model.addAttribute("prijavljeniIspiti", listaPrijavljenihIspita);
@@ -60,7 +61,7 @@ private IspitRepository ispitRepo;
 		
 	}
 	
-	@PostMapping("/nije")
+	@PostMapping("/dodaj")
 	String prijaviIspit(@ModelAttribute Ispit ispitDodat) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -69,18 +70,18 @@ private IspitRepository ispitRepo;
 
 	
 		Student s1 = studentRepo.getById(userId);
-		listaPrijavljenihIspita = s1.getPrijaveljeniIspiti();
+		listaPrijavljenihIspita = s1.getPrijavljeniIspiti();
 		System.out.println("OVO JE DODAT" + " "+ ispitDodat.getId());
 		
 		Ispit ispitTemp = ispitRepo.getById(ispitDodat.getId());
 		listaPrijavljenihIspita.add(ispitTemp);
 		
-		s1.setPrijaveljeniIspiti(listaPrijavljenihIspita);
+		s1.setPrijavljeniIspiti(listaPrijavljenihIspita);
 		studentRepo.save(s1);
 		
 	
 		
-		return "uspeh";
+		return "redirect:/";
 		
 		
 	}

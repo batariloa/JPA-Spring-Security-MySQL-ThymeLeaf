@@ -1,4 +1,4 @@
-package Metropolitan.DZ06.student;
+package Metropolitan.DZ06.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +12,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.stereotype.Component;
-
-import Metropolitan.DZ06.ispit.Ispit;
 
 @Component
 @Entity(name="student")
@@ -26,9 +29,22 @@ public class Student {
 	 @GeneratedValue
 	 private Long id;
 
-	 @JoinTable
-	    @OneToMany(cascade = CascadeType.ALL)
-	 private List<Ispit> prijaveljeniIspiti = new ArrayList<>();
+	 
+	 public List<Ispit> getPrijavljeniIspiti() {
+		return prijavljeniIspiti;
+	}
+
+
+
+	public void setPrijavljeniIspiti(List<Ispit> prijavljeniIspiti) {
+		this.prijavljeniIspiti = prijavljeniIspiti;
+	}
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "student_ispit_join", 
+		    joinColumns = {@JoinColumn(name = "student_id")},
+		    inverseJoinColumns = {@JoinColumn(name = "ispit_id")})
+	 private List<Ispit> prijavljeniIspiti = new ArrayList<>();
 	
 	
 	public Student(Long id, String ime, String indeks, String email, String password) {
@@ -41,13 +57,7 @@ public class Student {
 		
 	}
 
-	public List<Ispit> getPrijaveljeniIspiti() {
-		return prijaveljeniIspiti;
-	}
 
-	public void setPrijaveljeniIspiti(List<Ispit> prijaveljeniIspiti) {
-		this.prijaveljeniIspiti = prijaveljeniIspiti;
-	}
 
 	public String getRole() {
 		return role;
@@ -56,11 +66,21 @@ public class Student {
 		this.role = role;
 	}
 
+	@Size(min=1)
 	private String ime;
+	
+
+	@Size(min=4, max=5)
+	@NumberFormat
 	private String indeks;
+	
 	private String role;
 	
+	@Email
+	@Size(min=1)
+	@Column(unique=true)
 	private String email;
+	@Size(min = 5)
 	private String password;
 	
 	public Long getId() {

@@ -1,4 +1,4 @@
-package Metropolitan.DZ06.ispit;
+package Metropolitan.DZ06.entity;
 
 
 import java.util.Date;
@@ -26,6 +26,7 @@ public class Ispit {
 
 	@DateTimeFormat (pattern="YYYY-MM-dd")
 	private Date datum;
+	
 	public Long getId() {
 		return id;
 	}

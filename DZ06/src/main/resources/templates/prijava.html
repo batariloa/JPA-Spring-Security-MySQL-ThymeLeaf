@@ -2,26 +2,31 @@
 <html xmlns:th="https://thymeleaf.org">    
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Prijavi ispite</title>
 
-
+<link rel="stylesheet" type="text/css" th:href="@{/css/loginstil.css}"/>
 </head>
 <body>
 
 <div th:include="navbar.html"> content here </div>
-<div class="wrapper" style="width:800px; margin:0 auto;">
+<div class="wrapper fadeInDown" style="width:800px; margin:0 auto;">
 
 <p>Prijavi ispite</p><br>
 
-<form style="width: 400px; margin: 0 auto;" class="form-group"  th:action="@{/nije}" th:object="${myispit}" method="post"  >
+  <div class="form-group">
+<form style="width: 460px; margin: 0 auto;" class="form-group "  th:action="@{/dodaj}" th:object="${myispit}" method="post"  >
 <select  class="form-control" th:field="*{id}" >
 <option th:each="item : ${ispiti}"
 th:value="${item.getId}"
-th:text="${item.getIme}"></option>
+th:text="${item.getSifra + ' - ' + item.getIme + ' - ' + item.getDatum}  "></option>
 </select>
 <br>
-<input  class="btn btn-primary" type="submit" value="Prijavi"> 
+<div class="text-center">
+  <input type="submit" class="fadeIn fourth" value="Prijavi ispit">
+  </div>
 </form>
+</div>
+
 <br>
 <p>Prijavljeni ispiti</p>
 
